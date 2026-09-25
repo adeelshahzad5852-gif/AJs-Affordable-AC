@@ -93,7 +93,9 @@ All 14 reviews on his Google profile as of 25 September 2026.
 Google profile, cropped and compressed. **All hidden metadata (including any GPS
 location) was stripped** when they were re-saved.
 
-The home-page cover is link 2 (`cover-2.jpg`, `cover-2-mobile.jpg`). The
+The home-page cover is link 8 (`cover-8.jpg`, `cover-8-mobile.jpg`): a man in
+sunglasses and a mask checking a Daikin unit with gauges. **Nobody has confirmed
+he is AJ**, so the alt text says "a technician"; ask AJ (question 5). The
 link-preview image `og-image.jpg` is link 38, which had words scratched into
 the customer's concrete pad that looked like names; that strip is **blurred for
 privacy**.
@@ -105,7 +107,6 @@ Left out on purpose. Do not add these back without asking AJ:
 | 17, 23, 26, 29, 43 | Look like a customer's uploads, not AJ's: they match the photos on j808702's review and were posted as one batch. Both videos are in this set. |
 | 5 | A family's names on Christmas stockings |
 | 10 | A client's framed photograph of a person |
-| 8 | A man working on a unit. Nobody knows if it is AJ. **Worth asking**: a real photo of AJ would help the About page. |
 | 6, 12, 14, 16, 25, 27, 30 | Dark, blurry or unclear |
 | 1, 35 | Would need cropping (wall lettering; a reflection in glass) |
 | 31 | Near-duplicate of 19 |
@@ -141,7 +142,8 @@ actually has it.
    will fail silently: remove the `sms:` links and the texting FAQ.
 3. Is the service area list right?
 4. Are all the photos his own jobs? (The home page calls them "Jobs we've done".)
-5. Is the man in photo 8 him? Is there a photo of him he'd like on the site?
+5. Is the man in the home-page cover photo (link 8) him or his crew? Is there a
+   photo of him he'd like on the About page?
 6. Is his business name spelled "AJs" or "AJ's", and is it an LLC?
 7. Does a deep cleaning include the outdoor coil? The cleaning page only says
    it *can* be cleaned and to ask him.

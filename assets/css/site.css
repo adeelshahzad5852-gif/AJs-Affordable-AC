@@ -196,7 +196,7 @@ blockquote { margin: 0; }
   background: linear-gradient(180deg, rgba(6, 42, 63, .70) 0%, rgba(6, 42, 63, .84) 50%, rgba(6, 42, 63, .93) 100%);
 }
 .cover__inner { position: relative; z-index: 2; padding-block: 56px 60px; }
-.cover h1 { color: var(--white); max-width: 15ch; margin-bottom: 14px; font-size: clamp(2.1rem, 5.2vw, 3.4rem); }
+.cover h1 { color: var(--white); max-width: 18ch; margin-bottom: 14px; font-size: clamp(2.1rem, 5.2vw, 3.4rem); }
 .cover h1 span { color: var(--sun); display: block; }
 .cover__lede { font-size: 1.12rem; color: var(--on-dark); max-width: 48ch; margin-bottom: 22px; }
 .cover__phone {
@@ -518,16 +518,26 @@ blockquote { margin: 0; }
   .brand__sub { font-size: .66rem; letter-spacing: .16em; }
 
   /* The photo covers the whole cover except a strip on the left, and fades
-     into the blue there, so it reads as one background while the AC unit
-     (in the middle of every photo AJ has) stays clear of the text. */
+     into the blue there, so it reads as one background. The fade is keyed to
+     where the text column ends, not to the photo, so the words sit on dark
+     blue at any window width and any browser text size, while the technician
+     and the gauges on the right stay clear. */
   .cover { min-height: 620px; display: flex; align-items: center; }
   .cover__media { left: 32%; }
-  .cover__media img { object-position: 50% 70%; }
-  .cover__media::after {
-    background: linear-gradient(90deg, var(--ink) 0%, rgba(6, 42, 63, .75) 16%, rgba(6, 42, 63, .2) 50%, rgba(6, 42, 63, 0) 100%);
+  .cover__media img { object-position: 80% 35%; }
+  .cover__media::after { display: none; }
+  .cover::before {
+    --text-end: calc(max(0px, (100% - var(--wrap)) / 2) + 20px + 31rem);
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(90deg, var(--ink) 32%,
+      rgba(6, 42, 63, .72) var(--text-end),
+      rgba(6, 42, 63, .2) calc(var(--text-end) + 15%),
+      rgba(6, 42, 63, 0) calc(var(--text-end) + 40%));
   }
   .cover__inner { padding-block: 72px; }
   .cover__text { max-width: 31rem; }
+  /* small enough that "AC repair & installation" stays on one line in the text column */
+  .cover h1 { font-size: clamp(2.1rem, 4.4vw, 2.8rem); }
 
   .grid--3 { grid-template-columns: repeat(3, 1fr); }
   .gallery { grid-template-columns: repeat(3, 1fr); }
