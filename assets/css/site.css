@@ -189,9 +189,13 @@ blockquote { margin: 0; }
    Desktop: text on the left, the photo filling the right half, unobscured.
    ========================================================================== */
 .cover { position: relative; background: var(--ink); color: var(--on-dark); overflow: hidden; }
-.cover__media { position: relative; }
-.cover__media img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 60%; }
-.cover__inner { position: relative; z-index: 2; padding-block: 30px 40px; }
+.cover__media { position: absolute; inset: 0; }
+.cover__media img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 65%; }
+.cover__media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(6, 42, 63, .70) 0%, rgba(6, 42, 63, .84) 50%, rgba(6, 42, 63, .93) 100%);
+}
+.cover__inner { position: relative; z-index: 2; padding-block: 56px 60px; }
 .cover h1 { color: var(--white); max-width: 15ch; margin-bottom: 14px; font-size: clamp(2.1rem, 5.2vw, 3.4rem); }
 .cover h1 span { color: var(--sun); display: block; }
 .cover__lede { font-size: 1.12rem; color: var(--on-dark); max-width: 48ch; margin-bottom: 22px; }
@@ -499,7 +503,6 @@ blockquote { margin: 0; }
   .why { grid-template-columns: repeat(2, 1fr); }
   .three { grid-template-columns: repeat(3, 1fr); }
   .footer__grid { grid-template-columns: repeat(2, 1fr); }
-  .cover__media img { height: 300px; }
   .areas { gap: 10px; }
   .areas li { font-size: 1.08rem; padding: 8px 18px; }
 }
@@ -514,15 +517,17 @@ blockquote { margin: 0; }
   .brand__name { font-size: 1.45rem; }
   .brand__sub { font-size: .66rem; letter-spacing: .16em; }
 
-  .cover { min-height: 560px; display: flex; align-items: center; }
-  .cover__media { position: absolute; top: 0; right: 0; bottom: 0; width: 48%; }
-  .cover__media img { height: 100%; object-position: 50% 70%; }
+  /* The photo covers the whole cover except a strip on the left, and fades
+     into the blue there, so it reads as one background while the AC unit
+     (in the middle of every photo AJ has) stays clear of the text. */
+  .cover { min-height: 620px; display: flex; align-items: center; }
+  .cover__media { left: 32%; }
+  .cover__media img { object-position: 50% 70%; }
   .cover__media::after {
-    content: ""; position: absolute; inset: 0;
-    background: linear-gradient(90deg, var(--ink) 0%, rgba(6, 42, 63, .55) 18%, rgba(6, 42, 63, 0) 42%);
+    background: linear-gradient(90deg, var(--ink) 0%, rgba(6, 42, 63, .75) 16%, rgba(6, 42, 63, .2) 50%, rgba(6, 42, 63, 0) 100%);
   }
-  .cover__inner { padding-block: 64px; }
-  .cover__text { max-width: 52%; }
+  .cover__inner { padding-block: 72px; }
+  .cover__text { max-width: 31rem; }
 
   .grid--3 { grid-template-columns: repeat(3, 1fr); }
   .gallery { grid-template-columns: repeat(3, 1fr); }

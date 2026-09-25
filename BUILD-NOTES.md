@@ -93,9 +93,10 @@ All 14 reviews on his Google profile as of 25 September 2026.
 Google profile, cropped and compressed. **All hidden metadata (including any GPS
 location) was stripped** when they were re-saved.
 
-The cover photo (link 38) had words scratched into the customer's concrete
-pad, which looked like names. That strip is **blurred for privacy** in
-`cover.jpg`, `cover-mobile.jpg` and `og-image.jpg`.
+The home-page cover is link 2 (`cover-2.jpg`, `cover-2-mobile.jpg`). The
+link-preview image `og-image.jpg` is link 38, which had words scratched into
+the customer's concrete pad that looked like names; that strip is **blurred for
+privacy**.
 
 Left out on purpose. Do not add these back without asking AJ:
 
