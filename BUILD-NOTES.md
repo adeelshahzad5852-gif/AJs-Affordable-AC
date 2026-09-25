@@ -15,7 +15,7 @@ read every word of it, which is what ranking it later needs.
 |---|------|-----|
 | 1 | **Get AJ's Hawaii contractor license number.** Hawaii law (HRS §444-9.2) requires the license number in a contractor's advertising. The line is already written and switched off in the footer of every page, behind a `LAUNCH BLOCKER` comment. Fill in the number, delete the comment markers, on all seven pages. | AJ |
 | 2 | **Register the domain** in AJ's name and add it in Vercel under **Project → Settings → Domains**. | Adeel |
-| 3 | **Add the full-address tags** now that the address is final. Every page except `404.html` has a comment in its `<head>` marking the spot: `og:url`, `og:image` (use `assets/img/og-image.jpg`) and `<link rel="canonical">`, all as full `https://` links. Add `"url"` and `"image"` to the JSON-LD block in `index.html`. Optionally add a `sitemap.xml`. | Adeel |
+| 3 | **Point the full-address tags at the real domain.** Every page except `404.html` has a comment in its `<head>` marking the spot. `og:image` (the picture shown when the link is shared) currently uses the temporary address `https://a-js-affordable-ac.vercel.app`: change it to the domain, and add `og:url` and `<link rel="canonical">` as full `https://` links. Add `"url"` and `"image"` to the JSON-LD block in `index.html`. Optionally add a `sitemap.xml`. | Adeel |
 | 4 | **Switch off preview mode.** Two places: the `noindex` meta tag in every page (search for `PREVIEW MODE`) and the `X-Robots-Tag` header in `vercel.json`. `robots.txt` already allows crawling; add a `Sitemap:` line to it if you make a sitemap. | Adeel |
 | 5 | **Put the website address on his Google Business Profile.** The Website field is empty today. This is what actually sends people to the site. | AJ |
 
@@ -195,6 +195,13 @@ to fetch, and a blocked page can still appear in results as a bare link.
 read by anyone. Make it private: GitHub → the repo → **Settings** → **General**
 → **Danger Zone** → **Change visibility** → **Private**. Vercel deploys private
 repos as well.
+
+## Live preview
+
+**https://a-js-affordable-ac.vercel.app** (Vercel project `a-js-affordable-ac`).
+Checked live on 25 September 2026: all pages load, `/BUILD-NOTES.md` returns 404,
+every page carries `noindex` and the `X-Robots-Tag` header, and every image
+matches the repo byte for byte.
 
 ## Deploying to Vercel
 
