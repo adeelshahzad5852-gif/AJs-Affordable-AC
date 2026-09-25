@@ -1,0 +1,18 @@
+# ============================================================
+# PREVIEW MODE: search engines are blocked.
+#
+# This site is on a temporary address so AJ can review it. It
+# must not appear in Google until:
+#   1. AJ's Hawaii contractor license number is on every page, and
+#   2. the site is on AJ's own domain, and
+#   3. AJ has seen it and agreed.
+#
+# TO GO PUBLIC: replace this whole file with
+#
+#   User-agent: *
+#   Allow: /
+#
+# then follow launch steps 3 and 4 in BUILD-NOTES.md.
+# ============================================================
+User-agent: *
+Disallow: /
