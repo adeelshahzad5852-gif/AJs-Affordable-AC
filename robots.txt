@@ -1,5 +1,5 @@
 # ============================================================
-# PREVIEW MODE: search engines are blocked.
+# PREVIEW MODE: the site is kept out of search results.
 #
 # This site is on a temporary address so AJ can review it. It
 # must not appear in Google until:
@@ -7,12 +7,15 @@
 #   2. the site is on AJ's own domain, and
 #   3. AJ has seen it and agreed.
 #
-# TO GO PUBLIC: replace this whole file with
+# Crawling is deliberately NOT blocked here. Every page carries a
+# "noindex" tag and an X-Robots-Tag header (vercel.json), and Google
+# only obeys those if it is allowed to fetch the page. Blocking
+# crawling with "Disallow: /" can still let a linked URL show up in
+# results as a bare address.
 #
-#   User-agent: *
-#   Allow: /
-#
-# then follow launch steps 3 and 4 in BUILD-NOTES.md.
+# TO GO PUBLIC: leave this file as it is (it allows everything),
+# add a Sitemap line once sitemap.xml exists, and follow launch
+# steps 3 and 4 in BUILD-NOTES.md.
 # ============================================================
 User-agent: *
-Disallow: /
+Disallow:

@@ -15,8 +15,8 @@ read every word of it, which is what ranking it later needs.
 |---|------|-----|
 | 1 | **Get AJ's Hawaii contractor license number.** Hawaii law (HRS §444-9.2) requires the license number in a contractor's advertising. The line is already written and switched off in the footer of every page, behind a `LAUNCH BLOCKER` comment. Fill in the number, delete the comment markers, on all seven pages. | AJ |
 | 2 | **Register the domain** in AJ's name and add it in Vercel under **Project → Settings → Domains**. | Adeel |
-| 3 | **Add the full-address tags** now that the address is final. Every page has a comment in its `<head>` marking the spot: `og:url`, `og:image` (use `assets/img/og-image.jpg`) and `<link rel="canonical">`, all as full `https://` links. Add `"url"` and `"image"` to the JSON-LD block in `index.html`. Optionally add a `sitemap.xml`. | Adeel |
-| 4 | **Switch off preview mode.** Three places: the `noindex` meta tag in every page (search for `PREVIEW MODE`), the `X-Robots-Tag` header in `vercel.json`, and `robots.txt` (instructions inside it). | Adeel |
+| 3 | **Add the full-address tags** now that the address is final. Every page except `404.html` has a comment in its `<head>` marking the spot: `og:url`, `og:image` (use `assets/img/og-image.jpg`) and `<link rel="canonical">`, all as full `https://` links. Add `"url"` and `"image"` to the JSON-LD block in `index.html`. Optionally add a `sitemap.xml`. | Adeel |
+| 4 | **Switch off preview mode.** Two places: the `noindex` meta tag in every page (search for `PREVIEW MODE`) and the `X-Robots-Tag` header in `vercel.json`. `robots.txt` already allows crawling; add a `Sitemap:` line to it if you make a sitemap. | Adeel |
 | 5 | **Put the website address on his Google Business Profile.** The Website field is empty today. This is what actually sends people to the site. | AJ |
 
 ---
@@ -48,7 +48,7 @@ beside the phone button, and the page titles already carry them.
 | Hours: Mon–Fri 7:30am–7pm, Sat 10am–7pm, Sun 9am–3pm | His Google listing, 25 Sep 2026 |
 | Installation, maintenance, repair; central and split systems; homes and businesses | The description on his Google listing |
 | Cleaning | His own photos, and a review that mentions "maintenance and cleaning" |
-| Based on the Windward side | His Google map pin sits in Waiahole. The site never names the exact spot; it may be his home. |
+| Based on the Windward side | His Google map pin sits in Waiahole. The site names the side of the island, never the exact spot. |
 | Service area | See below |
 
 ### Service area
@@ -93,6 +93,10 @@ All 14 reviews on his Google profile as of 25 September 2026.
 Google profile, cropped and compressed. **All hidden metadata (including any GPS
 location) was stripped** when they were re-saved.
 
+The cover photo (link 38) had words scratched into the customer's concrete
+pad, which looked like names. That strip is **blurred for privacy** in
+`cover.jpg`, `cover-mobile.jpg` and `og-image.jpg`.
+
 Left out on purpose. Do not add these back without asking AJ:
 
 | Link # | Why |
@@ -114,8 +118,8 @@ Posts straight to **Web3Forms** as a normal HTML form. No JavaScript.
 - Access key `a9d05928-993d-4cca-905a-5817f4d2543c` in `contact.html`
 - **Messages currently go to Adeel's inbox, not AJ's.** Before launch, give AJ
   his own Web3Forms key (so his inquiries reach him) and swap the value.
-- The key is shared with goodcallai.org and the JD HVACR site: 250 submissions a
-  month between all of them on the free tier.
+- The key is shared with GoodcallAI's other forms: 250 submissions a month
+  between all of them on the free tier.
 - The destination email address appears nowhere in the code.
 - A hidden `botcheck` field catches basic spam bots.
 - After sending, Web3Forms shows its own thank-you page.
@@ -131,14 +135,20 @@ actually has it.
 ## Questions for AJ
 
 1. His Hawaii contractor license number (launch step 1).
-2. Is the service area list right?
-3. Are all the photos his own jobs?
-4. Is the man in photo 8 him? Is there a photo of him he'd like on the site?
-5. Is his business name spelled "AJs" or "AJ's", and is it an LLC?
-6. Does a standard cleaning include the outdoor coil, as the cleaning page says?
-7. Is he a Hawaii Energy Clean Energy Ally? Does he offer financing? Any
+2. **Can (808) 852-0008 receive text messages?** The site offers "Call or text"
+   everywhere. If it is a landline, texts
+   will fail silently: remove the `sms:` links and the texting FAQ.
+3. Is the service area list right?
+4. Are all the photos his own jobs? (The home page calls them "Jobs we've done".)
+5. Is the man in photo 8 him? Is there a photo of him he'd like on the site?
+6. Is his business name spelled "AJs" or "AJ's", and is it an LLC?
+7. Does a deep cleaning include the outdoor coil? The cleaning page only says
+   it *can* be cleaned and to ask him.
+8. Does he offer anti-corrosion coating as a service? One review says he
+   coordinated it; the site says no more than that.
+9. Is he a Hawaii Energy Clean Energy Ally? Does he offer financing? Any
    manufacturer certifications or awards? Any offer he wants to run?
-8. Which email should website messages go to?
+10. Which email should website messages go to?
 
 ---
 
@@ -164,6 +174,27 @@ matching what people type into Google and what the local competitors use.
 "Mahalo" appears only in thank-you lines, the way AJ uses it himself.
 
 ---
+
+## Files that are not part of the site
+
+- `.vercelignore` keeps **this file** off the live site. Without it, Vercel
+  would publish it at `/BUILD-NOTES.md` for anyone to read.
+- `favicon.ico` sits at the root for browsers that ask for it by name; the
+  SVG icon is used everywhere else.
+
+## Preview mode, and why robots.txt allows crawling
+
+The temporary address is kept out of Google by the `noindex` meta tag on every
+page and the `X-Robots-Tag` header in `vercel.json`. `robots.txt` deliberately
+does **not** block crawling: Google only obeys `noindex` on pages it is allowed
+to fetch, and a blocked page can still appear in results as a bare link.
+
+## Housekeeping
+
+**The GitHub repo is public.** These notes and the full photo history can be
+read by anyone. Make it private: GitHub → the repo → **Settings** → **General**
+→ **Danger Zone** → **Change visibility** → **Private**. Vercel deploys private
+repos as well.
 
 ## Deploying to Vercel
 

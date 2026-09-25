@@ -4,6 +4,10 @@
    Palette: deep ocean blue + sunshine yellow.
    Yellow is only ever a background with dark text on it (buttons, the call
    bar, the CTA band) or text on the dark blue. It is never text on white.
+
+   Breakpoints are in em, so they follow the visitor's browser font size:
+   26.25em = 420px, 38.75em = 620px, 56.25em = 900px, 70em = 1120px at the
+   default 16px. Mobile first: every media query is min-width.
    ========================================================================== */
 
 @font-face {
@@ -34,7 +38,7 @@
   --text:      #0f2433;
   --muted:     #475f70;   /* 6.4:1 on paper, 5.8:1 on sky */
   --line:      #d3e0e8;
-  --on-dark:   #d5e3ec;   /* body text on ink */
+  --on-dark:   #d5e3ec;   /* body text on ink, 11.4:1 */
   --on-dark-2: #9fb8c9;   /* quieter text on ink, 7.2:1 */
 
   --sun:       #ffc72c;
@@ -54,16 +58,20 @@
 
 /* ---------- reset ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-bottom: 4.5rem;   /* keep focused things clear of the phone call bar */
+}
 body {
   margin: 0;
   background: var(--paper);
   color: var(--text);
   font-family: var(--font-body);
-  font-size: 17px;
+  font-size: 1.0625rem;             /* 17px at the default size, and follows the visitor's setting */
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 60px;               /* room for the fixed call bar on phones */
+  padding-bottom: 60px;             /* room for the fixed call bar on phones */
 }
 img { max-width: 100%; height: auto; display: block; }
 a { color: var(--ocean); text-underline-offset: 2px; }
@@ -87,12 +95,15 @@ blockquote { margin: 0; }
 .wrap { width: 100%; max-width: var(--wrap); margin-inline: auto; padding-inline: 20px; }
 .section { padding: 60px 0; }
 .section--tight { padding: 36px 0; }
+.section--flush-top { padding-top: 0; }
 .section--dark { background: var(--ink); color: var(--on-dark); }
 .section--dark h2, .section--dark h3 { color: var(--white); }
 .section--alt { background: var(--sky); }
-.lede { font-size: 1.14rem; color: var(--muted); max-width: 62ch; }
-.section--dark .lede { color: var(--on-dark); }
 .section-head { margin-bottom: 34px; }
+.lede { font-size: 1.14rem; color: var(--muted); max-width: 62ch; }
+.lede--form { margin-bottom: 26px; }
+.section--dark .lede { color: var(--on-dark); }
+.after-list { margin-top: 22px; }
 
 .eyebrow {
   font-family: var(--font-display);
@@ -103,7 +114,7 @@ blockquote { margin: 0; }
   color: var(--ocean);
   margin: 0 0 10px;
 }
-.section--dark .eyebrow, .pagehead .eyebrow { color: var(--sun); }
+.section--dark .eyebrow { color: var(--sun); }
 
 /* ---------- skip link ---------- */
 .skip {
@@ -124,15 +135,16 @@ blockquote { margin: 0; }
   flex-wrap: wrap; padding-block: 12px;
 }
 .brand { display: block; text-decoration: none; margin-right: auto; }
+.brand__name, .brand__sub { display: block; }
 .brand__name {
   font-family: var(--font-display);
   font-weight: 800; font-size: 1.32rem; line-height: 1.05;
-  color: var(--white); white-space: nowrap; letter-spacing: -.005em;
+  color: var(--white); letter-spacing: -.005em;
 }
 .brand__name span { color: var(--sun); }
 .brand__sub {
   font-size: .62rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--on-dark-2); margin-top: 4px; font-weight: 600; white-space: nowrap;
+  color: var(--on-dark-2); margin-top: 4px; font-weight: 600;
 }
 
 .nav { display: flex; gap: 2px; flex-wrap: wrap; order: 3; width: 100%; margin-left: -9px; }
@@ -143,7 +155,10 @@ blockquote { margin: 0; }
   padding: 9px 9px; border-radius: 6px; white-space: nowrap;
 }
 .nav a:hover { color: var(--white); background: var(--ink-2); }
-.nav a[aria-current="page"] { color: var(--sun); }
+.nav a[aria-current="page"] {
+  color: var(--sun);
+  text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px;
+}
 
 .topbar__cta { display: none; }
 
@@ -154,10 +169,7 @@ blockquote { margin: 0; }
   font-size: 1.06rem; font-weight: 700; line-height: 1.1;
   padding: 14px 22px; border-radius: 999px;
   text-decoration: none; border: 2px solid transparent; cursor: pointer;
-  white-space: nowrap; max-width: 100%;
-}
-@media (max-width: 419px) {
-  .btn { white-space: normal; text-align: center; }
+  white-space: normal; text-align: center; max-width: 100%;
 }
 .btn--sun { background: var(--sun); color: var(--sun-ink); }
 .btn--sun:hover { background: var(--sun-hi); color: var(--sun-ink); }
@@ -170,6 +182,7 @@ blockquote { margin: 0; }
 .btn--lg { font-size: 1.16rem; padding: 16px 26px; }
 .btn--block { width: 100%; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
+.center-actions { margin-top: 32px; }
 
 /* ==========================================================================
    Cover — the first thing on the home page. Phone: photo on top, text below.
@@ -179,7 +192,7 @@ blockquote { margin: 0; }
 .cover__media { position: relative; }
 .cover__media img { width: 100%; height: 220px; object-fit: cover; object-position: 50% 60%; }
 .cover__inner { position: relative; z-index: 2; padding-block: 30px 40px; }
-.cover h1 { color: var(--white); max-width: 15ch; margin-bottom: 14px; }
+.cover h1 { color: var(--white); max-width: 15ch; margin-bottom: 14px; font-size: clamp(2.1rem, 5.2vw, 3.4rem); }
 .cover h1 span { color: var(--sun); display: block; }
 .cover__lede { font-size: 1.12rem; color: var(--on-dark); max-width: 48ch; margin-bottom: 22px; }
 .cover__phone {
@@ -192,7 +205,8 @@ blockquote { margin: 0; }
 }
 .cover__phone .num {
   font-family: var(--font-display); font-weight: 800; line-height: 1.05;
-  font-size: clamp(2.3rem, 7vw, 3.3rem); color: var(--white); white-space: nowrap;
+  font-size: min(clamp(2.3rem, 7vw, 3.3rem), 11.5vw);   /* still fits a 280px screen */
+  color: var(--white); white-space: nowrap;
 }
 .cover__phone:hover .num { color: var(--sun); }
 .cover__badges {
@@ -224,10 +238,11 @@ blockquote { margin: 0; }
 .why__item h3 { margin: 0 0 6px; }
 .why__item p { margin: 0 0 10px; color: var(--on-dark); font-size: 1rem; }
 .why__quote {
-  border-left: 3px solid var(--ink-line); padding-left: 12px;
-  font-size: .95rem; color: var(--on-dark-2); font-style: italic;
+  margin: 0; border-left: 3px solid var(--ink-line); padding-left: 12px;
+  font-size: .95rem; color: var(--on-dark-2);
 }
-.why__quote cite { display: block; font-style: normal; font-size: .85rem; margin-top: 4px; color: var(--on-dark-2); }
+.why__quote blockquote { font-style: italic; }
+.why__quote figcaption { font-size: .85rem; margin-top: 4px; color: var(--on-dark-2); }
 
 /* ---------- cards ---------- */
 .grid { display: grid; gap: var(--gap); }
@@ -262,11 +277,9 @@ blockquote { margin: 0; }
   width: 5px; height: 9px; border: solid var(--white); border-width: 0 2px 2px 0;
   transform: rotate(45deg);
 }
-.section--dark .ticks li::before { background: var(--sun); }
-.section--dark .ticks li::after { border-color: var(--ink); }
 
 /* numbered steps */
-.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; gap: 22px; }
+.steps { list-style: none; margin: 0; padding: 0; counter-reset: step; display: grid; gap: 22px; max-width: 760px; }
 .steps li { counter-increment: step; position: relative; padding-left: 58px; }
 .steps li::before {
   content: counter(step);
@@ -304,7 +317,7 @@ blockquote { margin: 0; }
 .review blockquote { font-size: 1.02rem; }
 .review blockquote p { margin: 0 0 .8em; }
 .review blockquote p:last-child { margin-bottom: 0; }
-.review__who { margin-top: auto; }
+.review__who { margin: auto 0 0; }          /* names line up at the bottom of each card */
 .review__name { font-weight: 700; display: block; }
 .review__meta { font-size: .86rem; color: var(--muted); }
 .review__stars { color: var(--star); letter-spacing: .1em; font-size: 1.05rem; line-height: 1; }
@@ -328,11 +341,11 @@ blockquote { margin: 0; }
 .google-strip .btn { margin-left: auto; }
 
 /* ---------- service areas ---------- */
-.areas { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.areas { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
 .areas li {
-  font-family: var(--font-display); font-size: 1.08rem; font-weight: 600;
+  font-family: var(--font-display); font-size: 1rem; font-weight: 600;
   background: var(--white); border: 1px solid var(--line);
-  border-radius: 999px; padding: 8px 18px;
+  border-radius: 999px; padding: 7px 14px;
 }
 .section--alt .areas li { border-color: #c4d6e2; }
 
@@ -362,18 +375,19 @@ blockquote { margin: 0; }
 .crumb a:hover { color: var(--sun); }
 
 /* text beside a photo */
-.split { display: grid; gap: 30px; grid-template-columns: 1fr; align-items: start; }
+.split { display: grid; gap: 30px; grid-template-columns: minmax(0, 1fr); align-items: start; }
 .figure { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--white); border: 1px solid var(--line); }
 .figure img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; }
 .figure figcaption { padding: 10px 14px; font-size: .9rem; color: var(--muted); }
 
 /* a quote that stands on its own */
 .pull {
+  margin: 24px 0 0;
   background: var(--white); border: 1px solid var(--line); border-left: 5px solid var(--sun);
-  border-radius: var(--radius); padding: 20px 22px; margin-top: 24px;
+  border-radius: var(--radius); padding: 20px 22px;
 }
 .pull blockquote { font-size: 1.08rem; font-style: italic; }
-.pull cite { display: block; margin-top: 8px; font-style: normal; font-size: .9rem; color: var(--muted); }
+.pull figcaption { margin-top: 8px; font-size: .9rem; color: var(--muted); }
 
 /* three things customers say */
 .three { display: grid; gap: 22px; grid-template-columns: 1fr; }
@@ -382,7 +396,7 @@ blockquote { margin: 0; }
 .three p { color: var(--muted); margin: 0; }
 
 /* ---------- contact ---------- */
-.contact-grid { display: grid; gap: 36px; grid-template-columns: 1fr; }
+.contact-grid { display: grid; gap: 36px; grid-template-columns: minmax(0, 1fr); }
 .form { display: grid; gap: 16px; }
 .field { display: grid; gap: 6px; }
 .field label { font-weight: 600; font-size: .96rem; }
@@ -400,8 +414,8 @@ blockquote { margin: 0; }
 .form__note { font-size: .9rem; color: var(--muted); }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
 
-.contact-card { background: var(--ink); color: var(--on-dark); border-radius: var(--radius); padding: 28px; }
-.contact-card h2, .contact-card h3 { color: var(--white); }
+.contact-card { align-self: start; background: var(--ink); color: var(--on-dark); border-radius: var(--radius); padding: 28px; }
+.contact-card h2 { color: var(--white); font-size: 1.45rem; margin-bottom: 6px; }
 .contact-card dl { margin: 26px 0 0; display: grid; gap: 16px; }
 .contact-card dt {
   font-family: var(--font-display); text-transform: uppercase;
@@ -412,7 +426,8 @@ blockquote { margin: 0; }
 .contact-card .btn--sun { color: var(--sun-ink); }
 .contact-card .stack { display: grid; gap: 10px; margin-top: 16px; }
 .phone-xl {
-  font-family: var(--font-display); font-size: 2.1rem; font-weight: 800;
+  font-family: var(--font-display); font-weight: 800;
+  font-size: min(2.1rem, 8.5vw);                 /* still fits a 280px screen */
   color: var(--white); text-decoration: none; display: block; line-height: 1.1; white-space: nowrap;
 }
 .phone-xl:hover { color: var(--sun); }
@@ -467,13 +482,16 @@ blockquote { margin: 0; }
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
-.center-actions { margin-top: 32px; }
 .notfound-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none; }
 
 /* ==========================================================================
-   Breakpoints
+   Breakpoints (mobile first, all min-width, in em)
    ========================================================================== */
-@media (min-width: 620px) {
+@media (min-width: 26.25em) {   /* 420px */
+  .btn { white-space: nowrap; }
+}
+
+@media (min-width: 38.75em) {   /* 620px */
   .triage { grid-template-columns: repeat(3, 1fr); }
   .gallery { grid-template-columns: repeat(2, 1fr); }
   .reviews { grid-template-columns: repeat(2, 1fr); }
@@ -482,9 +500,12 @@ blockquote { margin: 0; }
   .three { grid-template-columns: repeat(3, 1fr); }
   .footer__grid { grid-template-columns: repeat(2, 1fr); }
   .cover__media img { height: 300px; }
+  .areas { gap: 10px; }
+  .areas li { font-size: 1.08rem; padding: 8px 18px; }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 56.25em) {   /* 900px */
+  html { scroll-padding-top: 9rem; scroll-padding-bottom: 0; }   /* clear of the two-row sticky header */
   body { padding-bottom: 0; }
   .callbar { display: none; }
   .topbar { position: sticky; top: 0; }
@@ -505,11 +526,12 @@ blockquote { margin: 0; }
 
   .grid--3 { grid-template-columns: repeat(3, 1fr); }
   .gallery { grid-template-columns: repeat(3, 1fr); }
+  .gallery--2 { grid-template-columns: repeat(2, 1fr); }
   .reviews { grid-template-columns: repeat(3, 1fr); }
   .reviews--flow { columns: 3; }
   .ba { grid-template-columns: repeat(2, 1fr); }
-  .contact-grid { grid-template-columns: 1.15fr .85fr; }
-  .split { grid-template-columns: 1.05fr .95fr; gap: 52px; }
+  .contact-grid { grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); }
+  .split { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 52px; }
   .split--flip > :first-child { order: 2; }
   .footer__grid { grid-template-columns: 1.4fr 1fr 1fr 1.2fr; }
   .section { padding: 80px 0; }
@@ -518,11 +540,19 @@ blockquote { margin: 0; }
 
 /* The header only goes to one row where brand, menu and call button all fit.
    Below this the menu drops to its own row, which stops sideways scrolling. */
-@media (min-width: 1120px) {
+@media (min-width: 70em) {      /* 1120px */
+  html { scroll-padding-top: 6rem; }
   .topbar__inner { flex-wrap: nowrap; }
+  .topbar .brand__name, .topbar .brand__sub { white-space: nowrap; }
   .nav { order: 0; width: auto; flex-wrap: nowrap; margin-left: 0; }
   .nav a { font-size: .98rem; padding: 9px 10px; }
   .topbar__cta { order: 0; }
+}
+
+/* A "Send a text" button on a desktop computer usually opens nothing useful
+   (Windows asks which app to use). Keep the plain text links, drop the buttons. */
+@media (hover: hover) and (pointer: fine) {
+  .band a[href^="sms:"], .contact-card a[href^="sms:"] { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -557,32 +587,4 @@ summary:focus-visible {
 .band a:focus-visible,
 .callbar .is-call:focus-visible {
   outline-color: var(--ink);
-}
-
-/* ---------- additions used by the page templates ---------- */
-.brand__name, .brand__sub { display: block; }
-.cover h1 { font-size: clamp(2.1rem, 5.2vw, 3.4rem); }
-.section--flush-top { padding-top: 0; }
-.contact-card h2 { font-size: 1.45rem; margin-bottom: 6px; }
-.why__quote { margin: 0; }
-.why__quote blockquote { font-style: italic; }
-.why__quote figcaption { font-size: .85rem; margin-top: 4px; color: var(--on-dark-2); }
-.pull { margin: 24px 0 0; }
-.pull figcaption { margin-top: 8px; font-size: .9rem; color: var(--muted); }
-.review__who { margin: 0; }
-.gallery--2 { grid-template-columns: 1fr; }
-@media (min-width: 620px) { .gallery--2 { grid-template-columns: repeat(2, 1fr); } }
-.notice {
-  background: var(--white); border: 1px solid var(--line); border-radius: var(--radius);
-  padding: 16px 20px; margin-bottom: 28px; color: var(--muted); font-size: .96rem;
-}
-.notice p { margin: 0; }
-.notice .btn { margin-top: 12px; }
-.after-list { margin-top: 22px; }
-.lede--form { margin-bottom: 26px; }
-.contact-card { align-self: start; }
-.steps { max-width: 760px; }
-@media (max-width: 619px) {
-  .areas { gap: 8px; }
-  .areas li { font-size: 1rem; padding: 7px 14px; }
 }
